@@ -2,10 +2,10 @@
 -- Init
 --------------------------------------------------------------------------
 
+require "plugins_init"
 require "settings"
 require "colors"
 require "keymaps"
-require "plugins_init"
 
 require "plugins/alpha"
 require "plugins/nvim-tree"
