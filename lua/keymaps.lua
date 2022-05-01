@@ -48,6 +48,8 @@ map('n', '<leader>gX', "lua require 'gitsigns'.reset_buffer()<CR>")
 map('n', '<leader>gS', "lua require 'gitsigns'.stage_hunk()<CR>")
 map('n', '<leader>gu', "lua require 'gitsigns'.undo_stage_hunk()<CR>")
 map('n', '<leader>c', ':Commits<CR>')
+map('n', '<leader>GB', ':Branches<CR>')
+map('n', '<leader>GS', ':Stashes<CR>')
 
 -- Completions
 -- When completion menu is shown, use <CR> to select an item
