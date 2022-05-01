@@ -27,19 +27,11 @@ packer.startup(function(use)
   -- Add you plugins here:
   use 'wbthomason/packer.nvim' -- packer can manage itself
 
-  use 'kyazdani42/nvim-web-devicons' -- sweet icons
-
-  -- File explorer
-  use 'kyazdani42/nvim-tree.lua'
-
-  use 'nvim-treesitter/nvim-treesitter'
-
-  -- Statusline
-  use {
-    'famiu/feline.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-  }
-
+  use { 'projekt0n/github-nvim-theme' }
+  use { 'kyazdani42/nvim-web-devicons' } -- sweet icons
+  use { 'kyazdani42/nvim-tree.lua' }
+  use { 'nvim-treesitter/nvim-treesitter' }
+  use { 'famiu/feline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }} -- Statusline
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
@@ -47,30 +39,44 @@ packer.startup(function(use)
       require('gitsigns').setup()
     end
   }
-
-  -- Dashboard (start screen)
-  use {
-    'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-  }
-
-  use "projekt0n/github-nvim-theme"
-
-  -- fzf
+  use { 'dense-analysis/ale' }
+  use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }} -- Dashboard (start screen)
 	use { 'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
 	use { 'junegunn/fzf.vim' }
   use { 'vijaymarupudi/nvim-fzf' }
-
-  -- tpope
-  use { 'tpope/vim-commentary' } -- Git commands
-  use { 'tpope/vim-endwise' } -- Git commands
-  use { 'tpope/vim-fugitive' } -- Git commands
+  use { 'tpope/vim-commentary' }
+  use { 'tpope/vim-dispatch' }
+  use { 'tpope/vim-endwise' }
+  use { 'tpope/vim-fugitive' }
   use { 'tpope/vim-obsession' }
-  use { 'tpope/vim-rails', ft = "ruby" }
+  use { 'tpope/vim-rails' }
+  use { 'tpope/vim-rhubarb' }
   use { 'tpope/vim-repeat' }
   use { 'tpope/vim-surround' }
-
   use { 'vim-test/vim-test' }
+  use { 'wincent/vim-clipper' }
+  use { 'pangloss/vim-javascript' }
+  use {
+    'maxmellon/vim-jsx-pretty',
+    config = function()
+      vim.g.vim_jsx_pretty_colorful_config = 1
+    end
+  }
+  use {
+    'mattn/emmet-vim',
+    config = function()
+      vim.g.user_emmet_leader_key = ','
+    end
+  }
+  use {
+    'AndrewRadev/splitjoin.vim',
+    config = function()
+      vim.g.splitjoin_split_mapping = ''
+      vim.g.splitjoin_join_mapping = ''
+      vim.g.splitjoin_trailing_comma = 1
+      vim.g.splitjoin_ruby_hanging_args = 0
+    end
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -83,6 +89,6 @@ end)
 cmd [[
   augroup user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    autocmd BufWritePost plugins_init.lua source <afile> | PackerSync
   augroup end
 ]]

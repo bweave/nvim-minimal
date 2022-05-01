@@ -75,6 +75,10 @@ map("n", "<c-right>", ":vertical resize +2<CR>")
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
+-- SplitJoin
+map('n', '<leader>j', ':SplitjoinSplit<CR>')
+map('n', '<leader>k', ':SplitjoinJoin<CR>')
+
 -- FZF
 map('n', '<C-p>', ':Files<CR>')
 map('n', '<leader>b', ':Buffers<cr>')
