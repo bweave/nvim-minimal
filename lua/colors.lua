@@ -20,6 +20,3 @@ require("github-theme").setup({
     }
   end
 })
-
--- Statusline
-require('feline').setup()
