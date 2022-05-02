@@ -77,6 +77,14 @@ packer.startup(function(use)
       vim.g.splitjoin_ruby_hanging_args = 0
     end
   }
+  use {
+    'kassio/neoterm',
+    config = function()
+      vim.g.neoterm_default_mod = "vert botright 80"
+      vim.g.neoterm_repl_ruby = "pry"
+      vim.g.neoterm_autoinsert = "1"
+    end,
+  }
   use { 'folke/which-key.nvim' }
 
   -- Automatically set up your configuration after cloning packer.nvim
