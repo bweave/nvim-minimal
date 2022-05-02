@@ -77,6 +77,7 @@ packer.startup(function(use)
       vim.g.splitjoin_ruby_hanging_args = 0
     end
   }
+  use { 'folke/which-key.nvim' }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
