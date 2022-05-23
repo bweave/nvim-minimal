@@ -11,26 +11,19 @@ local left = {
         style = 'bold',
       }
     end,
-    icon = '',
+    -- icon = '',
     left_sep = { ' ' },
-    right_sep = { ' ' },
+    right_sep = { 'right' },
   },
   {
     provider = 'file_info',
     hl = {
-      fg = 'white',
-      bg = 'oceanblue',
+      fg = 'skyblue',
+      -- bg = 'NONE',
       style = 'bold',
     },
-    left_sep = {
-      'slant_left_2',
-      { str = ' ', hl = { bg = 'oceanblue', fg = 'NONE' } },
-    },
-    right_sep = {
-      { str = ' ', hl = { bg = 'oceanblue', fg = 'NONE' } },
-      'slant_right_2',
-      ' ',
-    },
+    left_sep = { ' ' },
+    -- right_sep = {},
   },
   {
     provider = 'diagnostic_errors',
