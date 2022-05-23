@@ -128,6 +128,7 @@ local mappings = {
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
   },
+  L = { ':let @*=fnamemodify(expand("%"), ":~:.") . ":" . line(".")<CR>', "Copy path w/line number" },
   p = { "<cmd>set invpaste<cr>", "Paste mode toggle" },
   P = {
     name = "Packer",
