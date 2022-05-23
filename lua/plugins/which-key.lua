@@ -157,6 +157,11 @@ local mappings = {
       c = { "<cmd>Files app/graphs/church_center_graph<cr>", "Church Center Graph" },
       p = { "<cmd>Files app/graphs/planning_center_graph<cr>", "Planning Center Graph" },
     },
+    h = {
+      name = "Hashes",
+      c = { "<cmd>HashColon<cr>", "to Colon" },
+      r = { "<cmd>HashRocket<cr>", "to Rocket" },
+    },
     m = { "<cmd>Files app/models<cr>", "Models" },
     q = { "<cmd>Files app/queries<cr>", "Queries" },
     s = { "<cmd>Files app/services<cr>", "Services" },
@@ -191,3 +196,20 @@ local mappings = {
 local which_key = require 'which-key'
 which_key.setup(setup)
 which_key.register(mappings, opts)
+which_key.register({
+  r = {
+    name = "Ruby",
+    h = {
+      name = "Hash",
+      c = { ":HashColon<cr>", "to Colon" },
+      r = { ":HashRocket<cr>", "to Rocket" },
+    },
+  },
+}, {
+  mode = "v", -- VISUAL mode
+  prefix = "<leader>",
+  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true, -- use `silent` when creating keymaps
+  noremap = true, -- use `noremap` when creating keymaps
+  nowait = false, -- use `nowait` when creating keymaps
+})
