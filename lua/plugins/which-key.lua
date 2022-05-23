@@ -98,7 +98,7 @@ local mappings = {
       f = { "<cmd>Git blame<cr>", "File" },
       l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Line" },
     },
-    B = { "<cmd>GBrowse! ", "Browse on Github" },
+    B = { "<cmd>GBrowse!<cr>", "Browse on Github" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
     R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
     h = {
