@@ -123,6 +123,29 @@ local components = {
   inactive = { inactive_left, inactive_right },
 }
 
+local theme = {
+  black = '#1B1B1B',
+  skyblue = '#50B0F0',
+  cyan = '#009090',
+  green = '#60A040',
+  oceanblue = '#0066cc',
+  magenta = '#C26BDB',
+  orange = '#FF9000',
+  red = '#D10000',
+  violet = '#9E93E8',
+  white = '#FFFFFF',
+  yellow = '#E1E120',
+}
+
+if vim.o.background == 'dark' then
+  theme.bg = '#1F1F23'
+  theme.fg = '#D0D0D0'
+else
+  theme.bg = '#D8DEE9'
+  theme.fg = '#1F1F23'
+end
+
 feline.setup({
+  theme = theme,
   components = components,
 })
