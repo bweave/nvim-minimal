@@ -73,6 +73,7 @@ packer.startup(function(use)
   use { 'vim-test/vim-test' }
   use { 'wincent/vim-clipper' }
   use { 'pangloss/vim-javascript' }
+  use { 'rktjmp/lush.nvim' }
   use {
     'maxmellon/vim-jsx-pretty',
     config = function()
