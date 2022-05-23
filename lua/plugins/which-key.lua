@@ -84,6 +84,8 @@ local mappings = {
   e = {
     name = "Editor",
     c = { "<cmd>Files ~/.config/nvim<cr>", "Find config file"},
+    d = { "<cmd>Files ~/dotfiles<cr>", "Find dotfile"},
+    f = { "<cmd>so ~/.config/nvim/lua/plugins/feline.lua<cr>", "Reload feline (status bar)" },
     r = { "<cmd>so ~/.config/nvim/init.lua<cr>", "Reload config" },
   },
   E = { "<cmd>NvimTreeToggle<cr>", "Explorer toggle" },
