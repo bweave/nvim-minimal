@@ -33,6 +33,23 @@ packer.startup(function(use)
   use { 'nvim-treesitter/nvim-treesitter' }
   use { 'famiu/feline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }} -- Statusline
   use {
+    'akinsho/bufferline.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('bufferline').setup{
+        options = {
+          name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
+            -- remove extension from markdown files for example
+            if buf.name:match('term') then
+              return vim.fn.fnamemodify(buf.name, ':t')
+            end
+          end,
+          offsets = {{ filetype = "NvimTree", text = "File Explorer", text_align = "left" }},
+        }
+      }
+    end,
+  }
+  use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
