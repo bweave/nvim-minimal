@@ -7,7 +7,6 @@ local left = {
     hl = function()
       return {
         name = vi_mode_utils.get_mode_highlight_name(),
-        bg = 'NONE',
         fg = vi_mode_utils.get_mode_color(),
         style = 'bold',
       }
@@ -55,44 +54,31 @@ local right = {
   {
     provider = 'git_branch',
     hl = {
-      fg = 'white',
-      bg = 'black',
       style = 'bold',
     },
     right_sep = {
       str = ' ',
-      hl = {
-        fg = 'NONE',
-        bg = 'black',
-      },
     },
   },
   {
     provider = 'git_diff_added',
     hl = {
       fg = 'green',
-      bg = 'black',
     },
   },
   {
     provider = 'git_diff_changed',
     hl = {
       fg = 'orange',
-      bg = 'black',
     },
   },
   {
     provider = 'git_diff_removed',
     hl = {
       fg = 'red',
-      bg = 'black',
     },
     right_sep = {
       str = ' ',
-      hl = {
-        fg = 'NONE',
-        bg = 'black',
-      },
     },
   },
   {
@@ -106,8 +92,6 @@ local inactive_left = {
   {
     provider = 'file_info',
     hl = {
-      fg = 'white',
-      bg = 'NONE',
       style = 'bold',
     },
     left_sep = { ' ' },
