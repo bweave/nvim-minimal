@@ -82,7 +82,8 @@ map('n', '<leader>j', ':SplitjoinSplit<CR>')
 map('n', '<leader>k', ':SplitjoinJoin<CR>')
 
 -- FZF
-map('n', '<C-p>', ':Files<CR>')
+-- map('n', '<C-p>', ':Files<CR>')
+map('n', '<C-p>', ':lua require "fzf-lua".files()<CR>')
 -- map('n', '<leader>b', ':Buffers<cr>')
 
 -- Vim Test

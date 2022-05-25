@@ -59,7 +59,24 @@ packer.startup(function(use)
   use { 'dense-analysis/ale' }
   use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }} -- Dashboard (start screen)
 	use { 'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
-	use { 'junegunn/fzf.vim' }
+  use {
+    'ibhagwan/fzf-lua',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function()
+      require'fzf-lua'.setup {
+        winopts = {
+          height           = 0.40,            -- window height
+          width            = 1,            -- window width
+          row              = 1,            -- window row position (0=top, 1=bottom)
+          col              = 0,            -- window col position (0=left, 1=right)
+        },
+        fzf_opts = {
+          ['--info']      = 'hidden',
+          ['--layout']      = false,
+        },
+      }
+    end,
+  }
   use { 'vijaymarupudi/nvim-fzf' }
   use { 'tpope/vim-commentary' }
   use { 'tpope/vim-dispatch' }

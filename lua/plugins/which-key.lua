@@ -77,20 +77,34 @@ local opts = {
 }
 
 local mappings = {
-  b = { "<cmd>Buffers<cr>", "Buffers" },
-  B = { "<cmd>Branches<cr>", "Branches" },
-  c = { "<cmd>Colors<cr>", "Colors" },
-  C = { "<cmd>Commits<cr>", "Commits" },
+  -- b = { "<cmd>Buffers<cr>", "Buffers" },
+  b = { "<cmd>lua require('fzf-lua').buffers()<cr>", "Buffers" },
+  -- c = { "<cmd>Colors<cr>", "Colors" },
+  c = { "<cmd>lua require ('fzf-lua').colorschemes()<cr>", "Colors" },
+  -- C = { "<cmd>Commits<cr>", "Commits" },
+  C = { "<cmd>lua require ('fzf-lua').git_commits()<cr>", "Commits" },
   e = {
     name = "Editor",
-    c = { "<cmd>Files ~/.config/nvim<cr>", "Find config file"},
-    d = { "<cmd>Files ~/dotfiles<cr>", "Find dotfile"},
+    -- c = { "<cmd>Files ~/.config/nvim<cr>", "Find config file"},
+    c = { "<cmd>lua require 'fzf-lua'.files({ cwd = '~/.config/nvim' })<cr>", "Find nvim config file"},
+    -- d = { "<cmd>Files ~/dotfiles<cr>", "Find dotfile"},
+    d = { "<cmd>lua require 'fzf-lua'.files({ cwd = '~/dotfiles' })<cr>", "Find dotfile"},
     f = { "<cmd>so ~/.config/nvim/lua/plugins/feline.lua<cr>", "Reload feline (status bar)" },
     r = { "<cmd>so ~/.config/nvim/init.lua<cr>", "Reload config" },
   },
   E = { "<cmd>NvimTreeToggle<cr>", "Explorer toggle" },
-  f = { "<cmd>Files<cr>", "Files" },
-  F = { "<cmd>NvimTreeFindFile<cr>", "Find file" },
+  -- f = { "<cmd>Files<cr>", "Files" },
+  f = { "<cmd>lua require 'fzf-lua'.files()<cr>", "Files" },
+  F = {
+    name = "Find",
+    b = { "<cmd>lua require 'fzf-lua'.git_bcommits()<cr>", "Buffer Commits" },
+    B = { "<cmd>lua require 'fzf-lua'.git_branches()<cr>", "Branches" },
+    f = { "<cmd>lua require 'fzf-lua'.filetypes()<cr>", "Filetypes" },
+    F = { "<cmd>NvimTreeFindFile<cr>", "File" },
+    C = { "<cmd>lua require 'fzf-lua'.git_commits()<cr>", "Commits" },
+    s = { "<cmd>lua require 'fzf-lua'.git_status()<cr>", "Status" },
+    S = { "<cmd>lua require 'fzf-lua'.git_stashes()<cr>", "Stashes" },
+  },
   g = {
     name = "Git",
     b = {
@@ -100,7 +114,6 @@ local mappings = {
     },
     B = { "<cmd>GBrowse!<cr>", "Browse on Github" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-    R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
     h = {
       name = "Hunk",
       j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
@@ -110,6 +123,7 @@ local mappings = {
       s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
       u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Unstage Hunk" },
     },
+    R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
     s = { "<cmd>vertical Git<cr>", "Status" },
     S = { "<cmd>GStashList<cr>", "Stashes" },
   },
@@ -128,7 +142,9 @@ local mappings = {
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
   },
+  K = { "<cmd>lua require 'fzf-lua'.keymaps()<cr>", "Keymaps" },
   L = { ':let @*=fnamemodify(expand("%"), ":~:.") . ":" . line(".")<CR>', "Copy path w/line number" },
+  m = { "<cmd>lua require 'fzf-lua'.man_pages()<cr>", "Man Pages" },
   p = { "<cmd>set invpaste<cr>", "Paste mode toggle" },
   P = {
     name = "Packer",
