@@ -28,6 +28,7 @@ opt.linebreak = true                   -- Wrap on word boundary
 opt.joinspaces = false                 -- Don't add 2 spaces when joining lines
 opt.number = true                      -- Show line number
 opt.showmatch = true                   -- Highlight matching parenthesis
+opt.showmode = false                   -- Don't show Vim mode in the command line since I have it in my statusline
 opt.smartcase = true                   -- Ignore lowercase for the whole pattern
 opt.splitbelow = true                  -- Orizontal split to the bottom
 opt.splitright = true                  -- Vertical split to the right
