@@ -65,170 +65,198 @@ local setup = {
   },
 }
 
-local opts = {
-  mode = "n", -- NORMAL mode
-  -- prefix: use "<leader>f" for example for mapping everything related to finding files
-  -- the prefix is prepended to every mapping part of `mappings`
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = false, -- use `nowait` when creating keymaps
+local normal_mode_mappings = {
+  ["W"] = { "<cmd>WhichKey<cr>", "WhichKey mappings" },
+  ["<leader>"] = {
+    ['/'] = { "<cmd>Commentary<cr>", "Comment toggle" },
+    -- b = { "<cmd>Buffers<cr>", "Buffers" },
+    b = { "<cmd>lua require('fzf-lua').buffers()<cr>", "Buffers" },
+    -- c = { "<cmd>Colors<cr>", "Colors" },
+    c = { "<cmd>lua require ('fzf-lua').colorschemes()<cr>", "Colors" },
+    -- C = { "<cmd>Commits<cr>", "Commits" },
+    C = { "<cmd>lua require ('fzf-lua').git_commits()<cr>", "Commits" },
+    e = {
+      name = "Editor",
+      -- c = { "<cmd>Files ~/.config/nvim<cr>", "Find config file"},
+      c = { "<cmd>lua require 'fzf-lua'.files({ cwd = '~/.config/nvim' })<cr>", "Find nvim config file"},
+      -- d = { "<cmd>Files ~/dotfiles<cr>", "Find dotfile"},
+      d = { "<cmd>lua require 'fzf-lua'.files({ cwd = '~/dotfiles' })<cr>", "Find dotfile"},
+      f = { "<cmd>so ~/.config/nvim/lua/plugins/feline.lua<cr>", "Reload feline (status bar)" },
+      r = { "<cmd>so ~/.config/nvim/init.lua<cr>", "Reload config" },
+    },
+    E = { "<cmd>NvimTreeToggle<cr>", "Explorer toggle" },
+    -- f = { "<cmd>Files<cr>", "Files" },
+    f = { "<cmd>lua require 'fzf-lua'.files()<cr>", "Files" },
+    F = {
+      name = "Find",
+      b = { "<cmd>lua require 'fzf-lua'.git_bcommits()<cr>", "Buffer Commits" },
+      B = { "<cmd>lua require 'fzf-lua'.git_branches()<cr>", "Branches" },
+      f = { "<cmd>lua require 'fzf-lua'.filetypes()<cr>", "Filetypes" },
+      F = { "<cmd>NvimTreeFindFile<cr>", "File" },
+      C = { "<cmd>lua require 'fzf-lua'.git_commits()<cr>", "Commits" },
+      s = { "<cmd>lua require 'fzf-lua'.git_status()<cr>", "Status" },
+      S = { "<cmd>lua require 'fzf-lua'.git_stashes()<cr>", "Stashes" },
+    },
+    g = {
+      name = "Git",
+      b = {
+        name = "Blame",
+        f = { "<cmd>Git blame<cr>", "File" },
+        l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Line" },
+      },
+      B = { "<cmd>GBrowse!<cr>", "Browse on Github" },
+      d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
+      h = {
+        name = "Hunk",
+        j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+        k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+        p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+        r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+        s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+        u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Unstage Hunk" },
+      },
+      R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+      s = { "<cmd>vertical Git<cr>", "Status" },
+      S = { "<cmd>GStashList<cr>", "Stashes" },
+    },
+    G = {
+      name = "Go to",
+      d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Definition" },
+      D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Declaration" },
+      r = { "<cmd>lua vim.lsp.buf.references()<cr>", "References" },
+    },
+    h = { "<cmd>set hlsearch! hlsearch?<cr>", "Highlight toggle" },
+    j = { "<cmd>SplitjoinSplit<cr>", "Split block" },
+    k = { "<cmd>SplitjoinJoin<cr>", "Join block" },
+    K = { "<cmd>lua require 'fzf-lua'.keymaps()<cr>", "Keymaps" },
+    l = {
+      name = "LSP",
+      a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
+      d = { "<cmd>lua vim.lsp.diagnostic.get_line_diagnostics()<cr>", "Line diagnostics" },
+      K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover" },
+      r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+      s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
+    },
+    L = { ':let @*=fnamemodify(expand("%"), ":~:.") . ":" . line(".")<CR>', "Copy path w/line number" },
+    m = { "<cmd>lua require 'fzf-lua'.man_pages()<cr>", "Man Pages" },
+    p = { "<cmd>set invpaste<cr>", "Paste mode toggle" },
+    P = {
+      name = "Packer",
+      c = { "<cmd>PackerClean<cr>", "Clean" },
+      C = { "<cmd>PackerCompile<cr>", "Compile" },
+      i = { "<cmd>PackerInstall<cr>", "Install" },
+      l = { "<cmd>PackerStatus<cr>", "List" },
+      L = { "<cmd>PackerLoad<cr>", "Load" },
+      p = { "<cmd>PackerProfile<cr>", "Profile" },
+      s = { "<cmd>PackerSync<cr>", "Sync" },
+      S = {
+        name = "Snapshot",
+        s = { "<cmd>PackerSnapshot<cr>", "Snapshot" },
+        d = { "<cmd>PackerSnapshotDelete<cr>", "SnapshotDelete" },
+        r = { "<cmd>PackerSnapshotRollback<cr>", "SnapshotRollback" },
+      },
+      u = { "<cmd>PackerUpdate<cr>", "Update" },
+    },
+    r = {
+      name = "Rails",
+      c = { "<cmd>Files app/controllers<cr>", "Controllers" },
+      j = { "<cmd>Files app/javascript/src<cr>", "Javascript" },
+      J = { "<cmd>Files app/jobs<cr>", "Jobs" },
+      g = {
+        name = "Graphs",
+        a = { "<cmd>Files app/graphs/app_graph<cr>", "App Graph" },
+        c = { "<cmd>Files app/graphs/church_center_graph<cr>", "Church Center Graph" },
+        p = { "<cmd>Files app/graphs/planning_center_graph<cr>", "Planning Center Graph" },
+      },
+      h = {
+        name = "Hashes",
+        c = { "<cmd>HashColon<cr>", "to Colon" },
+        r = { "<cmd>HashRocket<cr>", "to Rocket" },
+      },
+      m = { "<cmd>Files app/models<cr>", "Models" },
+      q = { "<cmd>Files app/queries<cr>", "Queries" },
+      s = { "<cmd>Files app/services<cr>", "Services" },
+      v = { "<cmd>Files app/views<cr>", "Views" },
+    },
+    s = {
+      name = "Search",
+      w = { ":Rg <C-R><C-W><cr>", "Word under cursor" },
+      p = { ":Rg ", "Project", silent = false },
+    },
+    S = { "<cmd>vs .vscode/scratchpad_local.md<cr>", "Scratchpad" },
+    t = {
+      name = "Test",
+      r = { "<cmd>Texec rerun\\ -bcx\\ --no-notify\\ --\\ bin/rails\\ test\\ %<cr>", "Rails rerun file" },
+      R = { "<cmd>Texec rerun\\ -bcx\\ --no-notify\\ --\\ bin/rails\\ test\\ test/", "Rails rerun file" },
+      t = { "<cmd>TestFile<cr>", "File" },
+      T = { "<cmd>TestNearest<cr>", "Nearest" },
+    },
+    T = {
+      name = "Terminal",
+      n = { "<cmd>Tnew<cr>", "New" },
+      r = {
+        name = "REPL",
+        f = { "<cmd>TREPLSendFile<cr>", "Send file" },
+        l = { "<cmd>TREPLSendLine<cr>", "Send line" },
+        s = { "<cmd>TREPLSendSelection<cr>", "Send selection" },
+      },
+    },
+    w = { "<cmd>bdelete!<cr>", "Buffer delete" },
+  },
+  ["<C-p>"] = { "<cmd>lua require 'fzf-lua'.files()<cr>", "Files in project" },
+  ["<C-h>"] = { "<C-w>h", "Move: Left (split)" },
+  ["<C-j>"] = { "<C-w>j", "Move: Down (split)" },
+  ["<C-k>"] = { "<C-w>k", "Move: Up (split)" },
+  ["<C-l>"] = { "<C-w>l", "Move: Right (split)" },
+  ["<C-up>"] = { "<cmd>resize -2<cr>", "Resize up" },
+  ["<C-down>"] = { "<cmd>resize +2<cr>", "Resize down" },
+  ["<C-left>"] = { "<cmd>vertical resize -2<cr>", "Resize left" },
+  ["<C-right>"] = { "<cmd>vertical resize +2<cr>", "Resize right" },
+  ["<S-left>"] = { "<cmd>bnext<cr>", "Next Buffer" },
+  ["<S-right>"] = { "<cmd>bprevious<cr>", "Prev Buffer" },
 }
 
-local mappings = {
-  ['/'] = { "<cmd>Commentary<cr>", "Comment toggle" },
-  -- b = { "<cmd>Buffers<cr>", "Buffers" },
-  b = { "<cmd>lua require('fzf-lua').buffers()<cr>", "Buffers" },
-  -- c = { "<cmd>Colors<cr>", "Colors" },
-  c = { "<cmd>lua require ('fzf-lua').colorschemes()<cr>", "Colors" },
-  -- C = { "<cmd>Commits<cr>", "Commits" },
-  C = { "<cmd>lua require ('fzf-lua').git_commits()<cr>", "Commits" },
-  e = {
-    name = "Editor",
-    -- c = { "<cmd>Files ~/.config/nvim<cr>", "Find config file"},
-    c = { "<cmd>lua require 'fzf-lua'.files({ cwd = '~/.config/nvim' })<cr>", "Find nvim config file"},
-    -- d = { "<cmd>Files ~/dotfiles<cr>", "Find dotfile"},
-    d = { "<cmd>lua require 'fzf-lua'.files({ cwd = '~/dotfiles' })<cr>", "Find dotfile"},
-    f = { "<cmd>so ~/.config/nvim/lua/plugins/feline.lua<cr>", "Reload feline (status bar)" },
-    r = { "<cmd>so ~/.config/nvim/init.lua<cr>", "Reload config" },
-  },
-  E = { "<cmd>NvimTreeToggle<cr>", "Explorer toggle" },
-  -- f = { "<cmd>Files<cr>", "Files" },
-  f = { "<cmd>lua require 'fzf-lua'.files()<cr>", "Files" },
-  F = {
-    name = "Find",
-    b = { "<cmd>lua require 'fzf-lua'.git_bcommits()<cr>", "Buffer Commits" },
-    B = { "<cmd>lua require 'fzf-lua'.git_branches()<cr>", "Branches" },
-    f = { "<cmd>lua require 'fzf-lua'.filetypes()<cr>", "Filetypes" },
-    F = { "<cmd>NvimTreeFindFile<cr>", "File" },
-    C = { "<cmd>lua require 'fzf-lua'.git_commits()<cr>", "Commits" },
-    s = { "<cmd>lua require 'fzf-lua'.git_status()<cr>", "Status" },
-    S = { "<cmd>lua require 'fzf-lua'.git_stashes()<cr>", "Stashes" },
-  },
-  g = {
-    name = "Git",
-    b = {
-      name = "Blame",
-      f = { "<cmd>Git blame<cr>", "File" },
-      l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Line" },
-    },
-    B = { "<cmd>GBrowse!<cr>", "Browse on Github" },
-    d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-    h = {
-      name = "Hunk",
-      j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-      k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-      p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-      r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-      s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-      u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Unstage Hunk" },
-    },
-    R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-    s = { "<cmd>vertical Git<cr>", "Status" },
-    S = { "<cmd>GStashList<cr>", "Stashes" },
-  },
-  G = {
-    name = "Go to",
-    d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Definition" },
-    D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Declaration" },
-    r = { "<cmd>lua vim.lsp.buf.references()<cr>", "References" },
-  },
-  h = { "<cmd>set hlsearch! hlsearch?<cr>", "Highlight toggle" },
-  l = {
-    name = "LSP",
-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
-    d = { "<cmd>lua vim.lsp.diagnostic.get_line_diagnostics()<cr>", "Line diagnostics" },
-    K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover" },
-    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-    s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
-  },
-  K = { "<cmd>lua require 'fzf-lua'.keymaps()<cr>", "Keymaps" },
-  L = { ':let @*=fnamemodify(expand("%"), ":~:.") . ":" . line(".")<CR>', "Copy path w/line number" },
-  m = { "<cmd>lua require 'fzf-lua'.man_pages()<cr>", "Man Pages" },
-  p = { "<cmd>set invpaste<cr>", "Paste mode toggle" },
-  P = {
-    name = "Packer",
-    c = { "<cmd>PackerClean<cr>", "Clean" },
-    C = { "<cmd>PackerCompile<cr>", "Compile" },
-    i = { "<cmd>PackerInstall<cr>", "Install" },
-    l = { "<cmd>PackerStatus<cr>", "List" },
-    L = { "<cmd>PackerLoad<cr>", "Load" },
-    p = { "<cmd>PackerProfile<cr>", "Profile" },
-    s = { "<cmd>PackerSync<cr>", "Sync" },
-    S = {
-      name = "Snapshot",
-      s = { "<cmd>PackerSnapshot<cr>", "Snapshot" },
-      d = { "<cmd>PackerSnapshotDelete<cr>", "SnapshotDelete" },
-      r = { "<cmd>PackerSnapshotRollback<cr>", "SnapshotRollback" },
-    },
-    u = { "<cmd>PackerUpdate<cr>", "Update" },
-  },
-  r = {
-    name = "Rails",
-    c = { "<cmd>Files app/controllers<cr>", "Controllers" },
-    j = { "<cmd>Files app/javascript/src<cr>", "Javascript" },
-    J = { "<cmd>Files app/jobs<cr>", "Jobs" },
-    g = {
-      name = "Graphs",
-      a = { "<cmd>Files app/graphs/app_graph<cr>", "App Graph" },
-      c = { "<cmd>Files app/graphs/church_center_graph<cr>", "Church Center Graph" },
-      p = { "<cmd>Files app/graphs/planning_center_graph<cr>", "Planning Center Graph" },
-    },
-    h = {
-      name = "Hashes",
-      c = { "<cmd>HashColon<cr>", "to Colon" },
-      r = { "<cmd>HashRocket<cr>", "to Rocket" },
-    },
-    m = { "<cmd>Files app/models<cr>", "Models" },
-    q = { "<cmd>Files app/queries<cr>", "Queries" },
-    s = { "<cmd>Files app/services<cr>", "Services" },
-    v = { "<cmd>Files app/views<cr>", "Views" },
-  },
-  s = {
-    name = "Search",
-    w = { ":Rg <C-R><C-W><cr>", "Word under cursor" },
-    p = { ":Rg ", "Project", silent = false },
-  },
-  S = { "<cmd>vs .vscode/scratchpad_local.md<cr>", "Scratchpad" },
-  t = {
-    name = "Test",
-    r = { "<cmd>Texec rerun\\ -bcx\\ --no-notify\\ --\\ bin/rails\\ test\\ %<cr>", "Rails rerun file" },
-    R = { "<cmd>Texec rerun\\ -bcx\\ --no-notify\\ --\\ bin/rails\\ test\\ test/", "Rails rerun file" },
-    t = { "<cmd>TestFile<cr>", "File" },
-    T = { "<cmd>TestNearest<cr>", "Nearest" },
-  },
-  T = {
-    name = "Terminal",
-    n = { "<cmd>Tnew<cr>", "New" },
+local visual_mode_mappings = {
+  ["<leader>"] = {
+    ['/'] = { ":Commentary<cr>", "Comment toggle" },
     r = {
-      name = "REPL",
-      f = { "<cmd>TREPLSendFile<cr>", "Send file" },
-      l = { "<cmd>TREPLSendLine<cr>", "Send line" },
-      s = { "<cmd>TREPLSendSelection<cr>", "Send selection" },
+      name = "Ruby",
+      h = {
+        name = "Hash",
+        c = { ":HashColon<cr>", "to Colon" },
+        r = { ":HashRocket<cr>", "to Rocket" },
+      },
     },
   },
-  w = { "<cmd>bdelete!<cr>", "Buffer delete" },
+  ["<"] = { "<gv", "Dedent" },
+  [">"] = { ">gv", "Indent" },
+}
+
+local insert_mode_mappings = {
+  ["jk"] = { "<Esc>", "Esc" },
+  -- Make completion menu work as expected,
+  -- see https://superuser.com/q/246641/736190 and https://unix.stackexchange.com/q/162528/221410
+  ["<Tab>"] = { 'pumvisible()?"\\<C-n>":"\\<Tab>"', "Next item (completion)", expr = true },
+  ["<S-Tab>"] = { 'pumvisible()?"\\<C-p>":"\\<Tab>"', "Prev item (completion)", expr = true },
+  ["<CR>"] = { 'pumvisible()?"\\<C-Y>":"\\<CR>"', "Select item (completion)", expr = true },
+  ["<ESC>"] = { 'pumvisible()?"\\<C-e>":"\\<ESC>"', "Close menu (completion)", expr = true },
+}
+
+local function t(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local terminal_mode_mappings = {
+  ["<leader><Esc>"] = { t("<C-\\><C-n>"), "Esc to Normal mode" },
+  ["<C-h>"]   = { t('<C-\\><C-n><C-W>h'), 'Move: Left (terminal)' },
+  ["<C-j>"]   = { t('<C-\\><C-n><C-W>j'), 'Move: Down (terminal)' },
+  ["<C-k>"]   = { t('<C-\\><C-n><C-W>k'), 'Move: Up (terminal)' },
+  ["<C-l>"]   = { t('<C-\\><C-n><C-W>l'), 'Move: Right (terminal)' },
 }
 
 local which_key = require 'which-key'
 which_key.setup(setup)
-which_key.register(mappings, opts)
-which_key.register({
-  ['/'] = { "<cmd>Commentary<cr>", "Comment toggle" },
-  r = {
-    name = "Ruby",
-    h = {
-      name = "Hash",
-      c = { ":HashColon<cr>", "to Colon" },
-      r = { ":HashRocket<cr>", "to Rocket" },
-    },
-  },
-}, {
-  mode = "v", -- VISUAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = false, -- use `nowait` when creating keymaps
-})
+which_key.register(normal_mode_mappings, { mode = "n" })
+which_key.register(visual_mode_mappings, { mode = "v" })
+which_key.register(insert_mode_mappings, { mode = "i" })
+which_key.register(terminal_mode_mappings, { mode = "t" })
