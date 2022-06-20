@@ -66,7 +66,6 @@ local setup = {
 }
 
 local normal_mode_mappings = {
-  ["W"] = { "<cmd>WhichKey<cr>", "WhichKey mappings" },
   ["<leader>"] = {
     ['/'] = { "<cmd>Commentary<cr>", "Comment toggle" },
     -- b = { "<cmd>Buffers<cr>", "Buffers" },
@@ -202,6 +201,14 @@ local normal_mode_mappings = {
       },
     },
     w = { "<cmd>bdelete!<cr>", "Buffer delete" },
+    W = {
+      name = "WhichKey mappings",
+      i = { "<cmd>WhichKey '' i<cr>", "Insert mode mappings" },
+      n = { "<cmd>WhichKey '' n<cr>", "Normal mode mappings" },
+      t = { "<cmd>WhichKey '' t<cr>", "Terminal mode mappings" },
+      v = { "<cmd>WhichKey '' v<cr>", "Visual mode mappings" },
+      w = { "<cmd>WhichKey<cr>", "Top level mappings" },
+    },
   },
   ["<C-p>"] = { "<cmd>lua require 'fzf-lua'.files()<cr>", "Files in project" },
   ["<C-h>"] = { "<C-w>h", "Move: Left (split)" },
