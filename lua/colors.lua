@@ -4,7 +4,7 @@
 vim.opt.runtimepath:append("~/src/bweave-nvim") -- my dark theme built with Lush
 vim.opt.runtimepath:append("~/src/nord-light")  -- Nord light theme built with Lush
 
-vim.cmd("colo doom-molokai")
+vim.cmd("colo doom-monokai-flatland")
 
 -- require("github-theme").setup({
 --   theme_style = "dimmed",
