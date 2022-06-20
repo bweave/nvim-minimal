@@ -32,7 +32,7 @@ end
 -- }
 
 local separators = {
-  arrow = ' > ',
+  arrow = '  ',
   blank = ' ',
   pipe = ' | ',
 }
@@ -61,8 +61,9 @@ local modes = {
   ["nt"]  = { "NT", "N·TERMINAL" },
 }
 
-local function get_mode()
-  local mode = modes[api.nvim_get_mode().mode] or { "Unknown:", "U" }
+local function vim_mode()
+  local current_mode = vim.api.nvim_get_mode().mode
+  local mode = modes[current_mode] or { "Unknown:", "U" }
   return is_truncated(trunc_widths.mode) and mode[1] or mode[2]
 end
 
@@ -81,11 +82,11 @@ local function get_git_status()
   ) or ''
 end
 
-local function get_filename()
+local function filename()
   return is_truncated(trunc_widths.filename) and "%<%t" or "%<%f"
 end
 
-local function get_filetype()
+local function filetype()
   local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
   local icon = require'nvim-web-devicons'.get_icon(file_name, file_ext, { default = true })
   local filetype = vim.bo.filetype
@@ -94,7 +95,7 @@ local function get_filetype()
   return string.format('%s %s', icon, filetype):lower()
 end
 
-local function get_column_number()
+local function position()
   return "%l:%c"
 end
 
@@ -106,13 +107,13 @@ local function active_status_line()
 
   vim.opt_local.statusline = table.concat {
     separators.blank,
-    get_mode(),
+    vim_mode(),
+    separators.arrow,
+    filename(),
     separators.pipe,
-    get_filename(),
+    filetype(),
     separators.pipe,
-    get_filetype(),
-    separators.pipe,
-    get_column_number(),
+    position(),
     "%=",
     get_git_status(),
     separators.blank,
@@ -127,7 +128,7 @@ local function inactive_status_line()
 
   vim.opt_local.statusline = table.concat {
     separators.blank,
-    get_filename(),
+    filename(),
     "%=",
     separators.blank,
   }
