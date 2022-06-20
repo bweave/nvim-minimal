@@ -77,6 +77,7 @@ local opts = {
 }
 
 local mappings = {
+  ['/'] = { "<cmd>Commentary<cr>", "Comment toggle" },
   -- b = { "<cmd>Buffers<cr>", "Buffers" },
   b = { "<cmd>lua require('fzf-lua').buffers()<cr>", "Buffers" },
   -- c = { "<cmd>Colors<cr>", "Colors" },
@@ -214,6 +215,7 @@ local which_key = require 'which-key'
 which_key.setup(setup)
 which_key.register(mappings, opts)
 which_key.register({
+  ['/'] = { "<cmd>Commentary<cr>", "Comment toggle" },
   r = {
     name = "Ruby",
     h = {
