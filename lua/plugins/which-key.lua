@@ -234,6 +234,14 @@ local visual_mode_mappings = {
         r = { ":HashRocket<cr>", "to Rocket" },
       },
     },
+    T = {
+      name = "Terminal",
+      n = { "<cmd>Tnew<cr>", "New" },
+      r = {
+        name = "REPL",
+        s = { "<cmd>TREPLSendSelection<cr>", "Send selection" },
+      },
+    },
   },
   ["<"] = { "<gv", "Dedent" },
   [">"] = { ">gv", "Indent" },
