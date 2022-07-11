@@ -32,7 +32,7 @@ packer.startup(function(use)
   use { 'kyazdani42/nvim-tree.lua' }
   use { 'nvim-treesitter/nvim-treesitter' }
   use { 'nvim-treesitter/playground' }
-  use { 'GustavoPrietoP/doom-themes.nvim' }
+  use { 'base16-project/base16-vim' }
   -- use { 'famiu/feline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }} -- Statusline
   use {
     'akinsho/bufferline.nvim',
