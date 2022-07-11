@@ -177,6 +177,19 @@ local normal_mode_mappings = {
       s = { "<cmd>Files app/services<cr>", "Services" },
       v = { "<cmd>Files app/views<cr>", "Views" },
     },
+    R = {
+      name = "Ruby",
+      s = {
+        name = "Seeing is Believing",
+        a = {
+          name = "Annotate",
+          a = { "<cmd>lua sib_annotate_all()<cr>", "All" },
+          m = { "<cmd>lua sib_annotate_marked()<cr>", "Marked" },
+        },
+        c = { "<cmd>lua sib_annotate_clean()<cr>", "Clear annotations" },
+        t = { "<cmd>lua sib_toggle_mark()<cr>", "Toggle mark" },
+      },
+    },
     s = {
       name = "Search",
       w = { ":Rg <C-R><C-W><cr>", "Word under cursor" },
