@@ -27,11 +27,13 @@ packer.startup(function(use)
   -- Add you plugins here:
   use 'wbthomason/packer.nvim' -- packer can manage itself
 
-  use { 'projekt0n/github-nvim-theme' }
+  -- use { 'projekt0n/github-nvim-theme' }
   use { 'kyazdani42/nvim-web-devicons' } -- sweet icons
   use { 'kyazdani42/nvim-tree.lua' }
   use { 'nvim-treesitter/nvim-treesitter' }
-  use { 'famiu/feline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }} -- Statusline
+  use { 'nvim-treesitter/playground' }
+  use { 'base16-project/base16-vim' }
+  -- use { 'famiu/feline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }} -- Statusline
   use {
     'akinsho/bufferline.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
