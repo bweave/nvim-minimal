@@ -275,7 +275,7 @@ local function t(str)
 end
 
 local terminal_mode_mappings = {
-  ["<leader><Esc>"] = { t("<C-\\><C-n>"), "Esc to Normal mode" },
+  ["<Esc><Esc>"] = { t("<C-\\><C-n>"), "Esc to Normal mode" },
   ["<C-h>"]   = { t('<C-\\><C-n><C-W>h'), 'Move: Left (terminal)' },
   ["<C-j>"]   = { t('<C-\\><C-n><C-W>j'), 'Move: Down (terminal)' },
   ["<C-k>"]   = { t('<C-\\><C-n><C-W>k'), 'Move: Up (terminal)' },
