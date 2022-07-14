@@ -82,6 +82,7 @@ local normal_mode_mappings = {
       d = { "<cmd>lua require 'fzf-lua'.files({ cwd = '~/dotfiles' })<cr>", "Find dotfile"},
       f = { "<cmd>so ~/.config/nvim/lua/plugins/feline.lua<cr>", "Reload feline (status bar)" },
       r = { "<cmd>so ~/.config/nvim/init.lua<cr>", "Reload config" },
+      s = { "<cmd>vs .vscode/scratchpad_local.md<cr>", "Scratchpad" },
     },
     E = { "<cmd>NvimTreeToggle<cr>", "Explorer toggle" },
     -- f = { "<cmd>Files<cr>", "Files" },
@@ -184,12 +185,8 @@ local normal_mode_mappings = {
         t = { "<cmd>lua sib_toggle_mark()<cr>", "Toggle mark" },
       },
     },
-    s = {
-      name = "Search",
-      w = { ":Rg <C-R><C-W><cr>", "Word under cursor" },
-      p = { ":Rg ", "Project", silent = false },
-    },
-    S = { "<cmd>vs .vscode/scratchpad_local.md<cr>", "Scratchpad" },
+    s = { ":<cmd>lua require 'fzf-lua'.grep()<cr>", "Search" },
+    S = { ":<cmd>lua require 'fzf-lua'.grep_cword()<cr>", "Search word under cursor" },
     t = {
       name = "Test",
       r = { "<cmd>Texec rerun\\ -bcx\\ --no-notify\\ --\\ bin/rails\\ test\\ %<cr>", "Rails rerun file" },
