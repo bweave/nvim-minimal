@@ -9,7 +9,6 @@ require "statusline"
 require "commands"
 require "keymaps"
 
-require "plugins/ale"
 require "plugins/alpha"
 require "plugins/nvim-tree"
 require "plugins/treesitter"
